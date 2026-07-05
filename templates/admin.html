@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head"><h1>Admin panel</h1></section>
+<section class="stats-grid">
+    {% for label, value in stats.items() %}
+    <article><span>{{ value }}</span><p>{{ label.replace("_", " ").title() }}</p></article>
+    {% endfor %}
+</section>
+<section class="two-col">
+    <div class="table-wrap">
+        <h2>Users</h2>
+        <table>
+            <thead><tr><th>Name</th><th>Profession</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.profession }}</td>
+                    <td>{{ "Active" if user.is_active else "Inactive" }}</td>
+                    <td><a href="{{ url_for('toggle_user', user_id=user.id) }}">Toggle</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h2>Feedback by profession</h2>
+        <div class="list">
+            {% for row in grouped_feedback %}
+            <article><strong>{{ row.profession }}</strong><p>{{ row.total }} reports</p></article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
