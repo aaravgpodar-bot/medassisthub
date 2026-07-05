@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="auth-panel">
-    <div>
-        <p class="eyebrow">Healthcare coordination prototype</p>
-        <h1>Welcome back</h1>
-        <p>Sign in to manage fictional appointments, patient notes, staff tasks, messages, and feedback.</p>
+    <div class="auth-copy">
+        <p class="eyebrow">Clinical operations workspace</p>
+        <h1>Coordinate care without the clutter.</h1>
+        <p>Manage patients, appointments, team tasks, internal messages, and workplace issues from one clean hub.</p>
+        <div class="hero-points">
+            <span>Role-aware dashboard</span>
+            <span>Patient records</span>
+            <span>Team communication</span>
+        </div>
     </div>
-    <form method="post" class="form-card">
+    <form method="post" class="form-card login-card">
+        <div>
+            <h2>Sign in</h2>
+            <p>Use the sample admin account below to explore the workspace.</p>
+        </div>
         <label>Email <input type="email" name="email" value="admin@medassist.test" required></label>
         <label>Password <input type="password" name="password" value="Password123!" required></label>
-        <button type="submit">Log in</button>
-        <a href="{{ url_for('register') }}">Create an account</a>
+        <button type="submit">Open workspace</button>
+        <a href="{{ url_for('register') }}">Create a staff account</a>
     </form>
 </section>
 {% endblock %}
