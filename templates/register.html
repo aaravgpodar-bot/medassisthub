@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head">
+    <h1>Create account</h1>
+    <p>Register a fictional healthcare team member profile.</p>
+</section>
+<form method="post" class="grid-form">
+    <label>Name <input name="name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Password <input type="password" name="password" required></label>
+    <label>Profession <input name="profession" placeholder="Doctor, Nurse, Receptionist" required></label>
+    <label>Specialization <input name="specialization"></label>
+    <label>Workplace <input name="workplace"></label>
+    <label>Registration number <input name="registration_number"></label>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
