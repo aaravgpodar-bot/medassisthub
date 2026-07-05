@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head">
+    <h1>Patient management</h1>
+    <form class="search" method="get">
+        <input name="q" value="{{ search }}" placeholder="Search fictional patients">
+        <button>Search</button>
+    </form>
+</section>
+<form method="post" class="grid-form">
+    <label>Full name <input name="full_name" required></label>
+    <label>Age <input type="number" name="age" min="0"></label>
+    <label>Phone <input name="phone"></label>
+    <label>Medical history <textarea name="medical_history"></textarea></label>
+    <label>Allergies <textarea name="allergies"></textarea></label>
+    <label>Notes <textarea name="notes"></textarea></label>
+    <button>Add patient</button>
+</form>
+<section class="cards">
+    {% for patient in patients %}
+    <article>
+        <h2>{{ patient.full_name }}</h2>
+        <p>Age {{ patient.age or "unknown" }} · {{ patient.phone or "no phone" }}</p>
+        <p><strong>History:</strong> {{ patient.medical_history or "None recorded" }}</p>
+        <p><strong>Allergies:</strong> {{ patient.allergies or "None recorded" }}</p>
+        <p><strong>Created by:</strong> {{ patient.creator_name or "Unknown" }}</p>
+    </article>
+    {% else %}<p>No patients found.</p>{% endfor %}
+</section>
+{% endblock %}
