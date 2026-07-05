@@ -5,6 +5,7 @@ ClinicFlow is a Flask and SQLite web app for healthcare workplace coordination. 
 ## Features
 
 - User registration, secure login, logout, profiles, professions, and account status
+- First registered user automatically becomes the admin
 - Role-aware dashboard for appointments, tasks, messages, and quick actions
 - Patient records with history, allergies, notes, and creator attribution
 - Appointment list with scheduled, waiting, completed, and cancelled states
@@ -23,16 +24,7 @@ python seed_data.py
 python app.py
 ```
 
-On Windows PowerShell, activate with:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Seeded admin login:
-
-- Email: `admin@medassist.test`
-- Password: `Password123!`
+`python seed_data.py` creates a clean empty database. Open the website and sign up; the first account created becomes the admin.
 
 ## PythonAnywhere Setup
 
@@ -69,7 +61,7 @@ https://medassisthub.pythonanywhere.com
 ```text
 app.py                    Flask routes and app logic
 schema.sql                SQLite table definitions
-seed_data.py              Sample data loader
+seed_data.py              Clean database reset script
 requirements.txt          Python dependencies
 pythonanywhere_wsgi.py    PythonAnywhere WSGI helper
 templates/                HTML pages
