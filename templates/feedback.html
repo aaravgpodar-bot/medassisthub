@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head"><h1>Issue reporting</h1></section>
+<form method="post" class="grid-form">
+    <label>Category
+        <select name="category">
+            <option>scheduling</option><option>patient records</option><option>communication</option>
+            <option>workload</option><option>equipment</option><option>administration</option>
+        </select>
+    </label>
+    <label>Problem <textarea name="description" required></textarea></label>
+    <label>Feature suggestion <textarea name="feature_suggestion"></textarea></label>
+    <button>Submit feedback</button>
+</form>
+<section class="cards">
+    {% for item in feedback %}
+    <article>
+        <h2>{{ item.category }} · {{ item.profession }}</h2>
+        <p>{{ item.description }}</p>
+        {% if item.feature_suggestion %}<p><strong>Suggestion:</strong> {{ item.feature_suggestion }}</p>{% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
