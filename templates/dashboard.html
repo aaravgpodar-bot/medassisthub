@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head">
+    <div>
+        <p class="eyebrow">{{ current_user.profession }} · {{ current_user.workplace }}</p>
+        <h1>Hello, {{ current_user.name }}</h1>
+    </div>
+    <div class="quick-actions">
+        <a href="{{ url_for('patients') }}">Add patient</a>
+        <a href="{{ url_for('appointments') }}">Book appointment</a>
+        <a href="{{ url_for('tasks') }}">Create task</a>
+    </div>
+</section>
+<section class="stats-grid">
+    <article><span>{{ stats.patients }}</span><p>Patients</p></article>
+    <article><span>{{ stats.appointments }}</span><p>Appointments</p></article>
+    <article><span>{{ stats.tasks }}</span><p>Open tasks</p></article>
+    <article><span>{{ stats.messages }}</span><p>Unread messages</p></article>
+</section>
+<section class="two-col">
+    <div>
+        <h2>Upcoming appointments</h2>
+        <div class="list">
+            {% for item in appointments %}
+            <article>
+                <strong>{{ item.patient_name }}</strong>
+                <p>{{ item.appointment_date }} at {{ item.appointment_time }} · {{ item.status }}</p>
+            </article>
+            {% else %}<p>No appointments yet.</p>{% endfor %}
+        </div>
+    </div>
+    <div>
+        <h2>Your tasks</h2>
+        <div class="list">
+            {% for item in tasks %}
+            <article>
+                <strong>{{ item.title }}</strong>
+                <p>{{ item.category }} · due {{ item.due_date or "soon" }}</p>
+            </article>
+            {% else %}<p>No tasks yet.</p>{% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
