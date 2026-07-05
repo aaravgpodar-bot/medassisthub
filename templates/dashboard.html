@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="section-head">
+<section class="dashboard-hero">
     <div>
         <p class="eyebrow">{{ current_user.profession }} · {{ current_user.workplace }}</p>
         <h1>Hello, {{ current_user.name }}</h1>
+        <p>Here is today’s clinic flow: appointments, open work, messages, and patient activity in one place.</p>
     </div>
     <div class="quick-actions">
         <a href="{{ url_for('patients') }}">Add patient</a>
