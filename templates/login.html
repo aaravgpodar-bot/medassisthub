@@ -3,23 +3,24 @@
 <section class="auth-panel">
     <div class="auth-copy">
         <p class="eyebrow">Clinical operations workspace</p>
-        <h1>Coordinate care without the clutter.</h1>
-        <p>Manage patients, appointments, team tasks, internal messages, and workplace issues from one clean hub.</p>
+        <h1>Run the day from one calm dashboard.</h1>
+        <p>ClinicFlow brings patient records, appointments, task reminders, team messages, and staff feedback into one organized workspace.</p>
         <div class="hero-points">
             <span>Role-aware dashboard</span>
-            <span>Patient records</span>
-            <span>Team communication</span>
+            <span>Patient workflows</span>
+            <span>Team coordination</span>
         </div>
     </div>
     <form method="post" class="form-card login-card">
         <div>
             <h2>Sign in</h2>
-            <p>Use the sample admin account below to explore the workspace.</p>
+            <p>Enter your staff account details to continue.</p>
         </div>
-        <label>Email <input type="email" name="email" value="admin@medassist.test" required></label>
-        <label>Password <input type="password" name="password" value="Password123!" required></label>
-        <button type="submit">Open workspace</button>
+        <label>Email <input type="email" name="email" placeholder="name@clinic.com" required></label>
+        <label>Password <input type="password" name="password" placeholder="Password" required></label>
+        <button type="submit">Open ClinicFlow</button>
         <a href="{{ url_for('register') }}">Create a staff account</a>
+        <p class="helper-text">For the seeded admin account, use admin@medassist.test and Password123!.</p>
     </form>
 </section>
 {% endblock %}
