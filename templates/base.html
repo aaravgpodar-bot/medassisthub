@@ -21,14 +21,14 @@
             <a href="{{ url_for('messages') }}">Messages</a>
             <a href="{{ url_for('feedback') }}">Feedback</a>
             {% if current_user.role == "admin" %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a class="nav-logout" href="{{ url_for('logout') }}">Logout</a>
         </nav>
         {% endif %}
     </header>
 
     <main class="page">
         <section class="warning">
-            Prototype only. Do not enter real patient information or use this as a certified medical-record system.
+            Learning build with sample records only. Do not enter real patient information or use this as a certified medical-record system.
         </section>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
