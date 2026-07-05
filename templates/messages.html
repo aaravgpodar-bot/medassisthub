@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head"><h1>Team communication</h1></section>
+<form method="post" class="grid-form">
+    <label>Send to
+        <select name="receiver_id">{% for person in staff %}<option value="{{ person.id }}">{{ person.name }} · {{ person.profession }}</option>{% endfor %}</select>
+    </label>
+    <label>Message <textarea name="body" required></textarea></label>
+    <button>Send message</button>
+</form>
+<section class="cards">
+    {% for message in messages %}
+    <article>
+        <h2>{{ message.sender_name }} to {{ message.receiver_name }}</h2>
+        <p>{{ message.body }}</p>
+        <p>{{ message.created_at }} · {{ message.status }}</p>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
