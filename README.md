@@ -1,12 +1,12 @@
-# MedAssist Hub
+# ClinicFlow
 
-MedAssist Hub is a Flask and SQLite prototype for healthcare workplace coordination. It uses only fictional demo data and is not a certified medical-record system.
+ClinicFlow is a Flask and SQLite web app for healthcare workplace coordination. It brings staff accounts, patient workflows, appointments, reminders, messages, feedback, and admin tools into one clean workspace.
 
 ## Features
 
 - User registration, secure login, logout, profiles, professions, and account status
 - Role-aware dashboard for appointments, tasks, messages, and quick actions
-- Patient records with fictional history, allergies, notes, and creator attribution
+- Patient records with history, allergies, notes, and creator attribution
 - Appointment list with scheduled, waiting, completed, and cancelled states
 - Tasks and reminders for follow-ups, reports, and medication reviews
 - Internal staff messaging
@@ -29,14 +29,14 @@ On Windows PowerShell, activate with:
 .venv\Scripts\Activate.ps1
 ```
 
-Demo login:
+Seeded admin login:
 
 - Email: `admin@medassist.test`
 - Password: `Password123!`
 
 ## PythonAnywhere Setup
 
-Use a dedicated folder so this prototype does not replace another project.
+Use a dedicated folder so this app does not replace another project.
 
 ```bash
 cd ~
@@ -58,10 +58,10 @@ Then in the PythonAnywhere **Web** tab:
 6. Replace `YOUR_USERNAME` with your PythonAnywhere username.
 7. Reload the web app.
 
-For username `medhubassist`, the likely URL is:
+For username `medassisthub`, the likely URL is:
 
 ```text
-https://medhubassist.pythonanywhere.com
+https://medassisthub.pythonanywhere.com
 ```
 
 ## Project Structure
@@ -69,15 +69,15 @@ https://medhubassist.pythonanywhere.com
 ```text
 app.py                    Flask routes and app logic
 schema.sql                SQLite table definitions
-seed_data.py              Fictional demo data loader
+seed_data.py              Sample data loader
 requirements.txt          Python dependencies
 pythonanywhere_wsgi.py    PythonAnywhere WSGI helper
 templates/                HTML pages
-static/css/styles.css     Responsive healthcare styling
+static/css/styles.css     Responsive styling
 static/js/app.js          Small browser helpers
 AGENTS.md                 Notes for future Codex work
 ```
 
 ## Safety Notes
 
-This project is for learning and prototyping only. Do not enter real patient data, real medical advice, or production credentials.
+Use fictional records only. ClinicFlow is not a certified medical-record system and should not be used for real clinical care.
