@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head"><h1>Tasks and reminders</h1></section>
+<form method="post" class="grid-form">
+    <label>Task <input name="title" required></label>
+    <label>Category
+        <select name="category"><option>appointment</option><option>follow-up</option><option>reports</option><option>medication review</option></select>
+    </label>
+    <label>Due date <input type="date" name="due_date"></label>
+    <label>Assign to
+        <select name="assigned_to">{% for person in staff %}<option value="{{ person.id }}">{{ person.name }} · {{ person.profession }}</option>{% endfor %}</select>
+    </label>
+    <button>Create task</button>
+</form>
+<section class="cards">
+    {% for task in tasks %}
+    <article>
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.category }} · due {{ task.due_date or "soon" }} · {{ task.assigned_name }}</p>
+        <p>{{ "Completed" if task.is_completed else "Open" }}</p>
+        {% if not task.is_completed %}<a href="{{ url_for('complete_task', item_id=task.id) }}">Mark complete</a>{% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
