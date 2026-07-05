@@ -94,8 +94,10 @@ def register():
         if not all(form.get(field, "").strip() for field in required):
             flash("Please fill in name, email, password, and profession.", "error")
             return render_template("register.html")
+        existing_users = query("SELECT COUNT(*) AS total FROM users", one=True)["total"]
+        role = "admin" if existing_users == 0 else "staff"
         try:
-            execute(
+            user_id = execute(
                 """
                 INSERT INTO users
                 (name, email, password_hash, profession, specialization, workplace, registration_number, role)
@@ -109,11 +111,16 @@ def register():
                     form.get("specialization", "").strip(),
                     form.get("workplace", "").strip(),
                     form.get("registration_number", "").strip(),
-                    "staff",
+                    role,
                 ),
             )
-            flash("Account created. Please log in.", "success")
-            return redirect(url_for("login"))
+            session.clear()
+            session["user_id"] = user_id
+            if role == "admin":
+                flash("Account created. You are the first user, so admin access is enabled.", "success")
+            else:
+                flash("Account created.", "success")
+            return redirect(url_for("dashboard"))
         except sqlite3.IntegrityError:
             flash("That email is already registered.", "error")
     return render_template("register.html")
