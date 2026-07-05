@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section-head"><h1>Appointments</h1></section>
+<form method="post" class="grid-form">
+    <label>Patient
+        <select name="patient_id" required>{% for patient in patients %}<option value="{{ patient.id }}">{{ patient.full_name }}</option>{% endfor %}</select>
+    </label>
+    <label>Professional
+        <select name="professional_id" required>{% for person in staff %}<option value="{{ person.id }}">{{ person.name }} · {{ person.profession }}</option>{% endfor %}</select>
+    </label>
+    <label>Date <input type="date" name="appointment_date" required></label>
+    <label>Time <input type="time" name="appointment_time" required></label>
+    <label>Reason <input name="reason"></label>
+    <label>Status
+        <select name="status"><option>scheduled</option><option>waiting</option><option>completed</option><option>cancelled</option></select>
+    </label>
+    <button>Save appointment</button>
+</form>
+<section class="table-wrap">
+    <table>
+        <thead><tr><th>Patient</th><th>Professional</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for item in appointments %}
+            <tr>
+                <td>{{ item.patient_name }}</td>
+                <td>{{ item.professional_name }}</td>
+                <td>{{ item.appointment_date }} {{ item.appointment_time }}</td>
+                <td><span class="status">{{ item.status }}</span></td>
+                <td>
+                    <a href="{{ url_for('appointment_status', item_id=item.id, status='waiting') }}">Waiting</a>
+                    <a href="{{ url_for('appointment_status', item_id=item.id, status='completed') }}">Done</a>
+                    <a href="{{ url_for('appointment_status', item_id=item.id, status='cancelled') }}">Cancel</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
