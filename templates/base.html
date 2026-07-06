@@ -4,16 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title or "ClinicFlow" }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v='5') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', v='6') }}">
 </head>
 <body>
     <header class="topbar">
-        <a class="brand" href="{{ url_for('dashboard') if current_user else url_for('login') }}">
+        <a class="brand" href="{{ url_for('home') }}">
             <span class="brand-mark">+</span>
             <span>ClinicFlow</span>
         </a>
         {% if current_user %}
         <nav class="nav">
+            {% if current_user.role == "patient" %}
+            <a href="{{ url_for('patient_portal') }}">Portal</a>
+            <a href="{{ url_for('messages') }}">Messages</a>
+            <a href="{{ url_for('feedback') }}">Feedback</a>
+            {% else %}
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('patients') }}">Patients</a>
             <a href="{{ url_for('appointments') }}">Appointments</a>
@@ -21,6 +26,7 @@
             <a href="{{ url_for('messages') }}">Messages</a>
             <a href="{{ url_for('feedback') }}">Feedback</a>
             {% if current_user.role == "admin" %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+            {% endif %}
             <a class="nav-logout" href="{{ url_for('logout') }}">Logout</a>
         </nav>
         {% endif %}
@@ -41,6 +47,6 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </main>
-    <script src="{{ url_for('static', filename='js/app.js', v='5') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js', v='6') }}"></script>
 </body>
 </html>
