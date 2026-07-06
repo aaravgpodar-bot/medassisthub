@@ -2,16 +2,27 @@
 {% block content %}
 <section class="section-head">
     <h1>Create account</h1>
-    <p>Register a fictional healthcare team member profile.</p>
+    <p>Choose a staff workspace account or a patient portal account.</p>
 </section>
 <form method="post" class="grid-form">
+    <label>Account type
+        <select name="account_type" required>
+            <option value="staff">Clinic staff</option>
+            <option value="patient">Patient portal</option>
+        </select>
+    </label>
     <label>Name <input name="name" required></label>
     <label>Email <input type="email" name="email" required></label>
     <label>Password <input type="password" name="password" required></label>
-    <label>Profession <input name="profession" placeholder="Doctor, Nurse, Receptionist" required></label>
-    <label>Specialization <input name="specialization"></label>
-    <label>Workplace <input name="workplace"></label>
-    <label>Registration number <input name="registration_number"></label>
-    <button type="submit">Register</button>
-</form>
+    <label>Profession <input name="profession" placeholder="Doctor, Nurse, Receptionist"></label>
+    <label>Specialization <input name="specialization" placeholder="Pediatrics, Triage, Front Desk"></label>
+    <label>Workplace <input name="workplace" placeholder="Clinic or department"></label>
+    <label>Registration number <input name="registration_number" placeholder="Staff only"></label>
+    <label>Age <input type="number" name="age" min="0" placeholder="Patient only"></label>
+    <label>Phone <input name="phone" placeholder="Patient contact number"></label>
+    <label>Allergies <textarea name="allergies" placeholder="Patient only"></textarea></label>
+    <label>Patient notes <textarea name="notes" placeholder="Patient only"></textarea></label>
+    <button type="submit">Create account</button>
++</form>
++<p class="helper-text">The first staff account created becomes the admin. Patient accounts open the patient portal.</p>
 {% endblock %}
