@@ -50,6 +50,12 @@
 }
 .register-form .account-type-label { grid-column: 1 / -1; }
 .register-form .wide-field { grid-column: span 2; }
+.prototype-note {
+    color: #8795a5;
+    font-size: .78rem;
+    margin: 2rem 0 0;
+    text-align: center;
+}
 
 @media (max-width: 840px) {
     .portal-choice { grid-template-columns: 1fr; }
