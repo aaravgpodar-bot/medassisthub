@@ -2,25 +2,32 @@
 {% block content %}
 <section class="auth-panel">
     <div class="auth-copy">
-        <p class="eyebrow">Clinical operations workspace</p>
-        <h1>Run the day from one calm dashboard.</h1>
-        <p>ClinicFlow brings patient records, appointments, task reminders, team messages, and staff feedback into one organized workspace.</p>
-        <div class="hero-points">
-            <span>Role-aware dashboard</span>
-            <span>Patient workflows</span>
-            <span>Team coordination</span>
+        <p class="eyebrow">ClinicFlow</p>
+        <h1>Choose your workspace.</h1>
+        <p>Staff can manage patients, appointments, tasks, messages, feedback, and clinical summaries. Patients can create a portal account, update their profile, request appointments, and message the clinic.</p>
+        <div class="portal-choice">
+            <a class="choice-card" href="{{ url_for('register') }}?type=staff">
+                <strong>Clinic staff</strong>
+                <span>Doctors, nurses, reception, and admins</span>
+            </a>
+            <a class="choice-card patient-choice" href="{{ url_for('register') }}?type=patient">
+                <strong>Patient portal</strong>
+                <span>Patients sign up here</span>
+            </a>
         </div>
     </div>
     <form method="post" class="form-card login-card">
         <div>
             <h2>Sign in</h2>
-            <p>Enter your staff account details to continue.</p>
+            <p>Use either a staff account or patient portal account.</p>
         </div>
-        <label>Email <input type="email" name="email" placeholder="name@clinic.com" required></label>
+        <label>Email <input type="email" name="email" placeholder="name@example.com" required></label>
         <label>Password <input type="password" name="password" placeholder="Password" required></label>
         <button type="submit">Open ClinicFlow</button>
-        <a href="{{ url_for('register') }}">Create a staff account</a>
-        <p class="helper-text">For the seeded admin account, use admin@medassist.test and Password123!.</p>
+        <div class="auth-links">
+            <a href="{{ url_for('register') }}?type=staff">Create staff account</a>
+            <a href="{{ url_for('register') }}?type=patient">Create patient account</a>
+        </div>
     </form>
 </section>
 {% endblock %}
