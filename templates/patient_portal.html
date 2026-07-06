@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard-hero">
+    <div>
+        <p class="eyebrow">Patient portal</p>
+        <h1>Welcome, {{ current_user.name }}</h1>
+        <p>View appointments, request a visit, update your profile, check reminders, and contact the clinic team.</p>
+    </div>
+    <div class="quick-actions">
+        <a href="{{ url_for('feedback') }}">Send feedback</a>
+        <a href="{{ url_for('messages') }}">Messages</a>
+    </div>
+</section>
+<section class="stats-grid">
+    <article><span>{{ appointments|length }}</span><p>Appointments</p></article>
+    <article><span>{{ tasks|selectattr('is_completed', 'equalto', 0)|list|length }}</span><p>Open reminders</p></article>
+    <article><span>{{ messages|length }}</span><p>Recent messages</p></article>
+    <article><span>{{ staff|length }}</span><p>Care team contacts</p></article>
+</section>
+<section class="two-col">
+    <div>
+        <h2>Your profile</h2>
+        <form method="post" action="{{ url_for('update_patient_profile') }}" class="form-card">
+            <label>Age <input type="number" name="age" min="0" value="{{ patient.age if patient else '' }}"></label>
+            <label>Phone <input name="phone" value="{{ patient.phone if patient else '' }}"></label>
+            <label>Allergies <textarea name="allergies">{{ patient.allergies if patient else '' }}</textarea></label>
+            <label>Notes <textarea name="notes">{{ patient.notes if patient else '' }}</textarea></label>
+            <button>Update profile</button>
+        </form>
+    </div>
+    <div>
+        <h2>Request appointment</h2>
+        <form method="post" action="{{ url_for('request_appointment') }}" class="form-card">
+            <label>Care team member
+                <select name="professional_id" required>
+                    {% for person in staff %}<option value="{{ person.id }}">{{ person.name }} · {{ person.profession }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Date <input type="date" name="appointment_date" required></label>
+            <label>Time <input type="time" name="appointment_time" required></label>
+            <label>Reason <input name="reason" placeholder="Brief reason for visit"></label>
+            <button>Send request</button>
+        </form>
+    </div>
+</section>
+<section class="two-col">
+    <div>
+        <h2>Your appointments</h2>
+        <div class="list">
+            {% for item in appointments %}
+            <article>
+                <strong>{{ item.appointment_date }} at {{ item.appointment_time }}</strong>
+                <p>{{ item.professional_name }} · {{ item.status }} · {{ item.reason or 'No reason added' }}</p>
+            </article>
+            {% else %}<p>No appointments yet.</p>{% endfor %}
+        </div>
+    </div>
+    <div>
+        <h2>Reminders</h2>
+        <div class="list">
+            {% for task in tasks %}
+            <article>
+                <strong>{{ task.title }}</strong>
+                <p>{{ task.category }} · due {{ task.due_date or 'soon' }} · {{ 'Complete' if task.is_completed else 'Open' }}</p>
+                {% if not task.is_completed %}<a href="{{ url_for('complete_task', item_id=task.id) }}">Mark complete</a>{% endif %}
+            </article>
+            {% else %}<p>No reminders yet.</p>{% endfor %}
+        </div>
+    </div>
+</section>
+<section class="two-col">
+    <div>
+        <h2>Contact care team</h2>
+        <form method="post" action="{{ url_for('patient_message') }}" class="form-card">
+            <label>Send to
+                <select name="receiver_id" required>
+                    {% for person in staff %}<option value="{{ person.id }}">{{ person.name }} · {{ person.profession }}</option>{% endfor %}
+                </select>
+            </label>
+            <label>Message <textarea name="body" required></textarea></label>
+            <button>Send message</button>
+        </form>
+    </div>
+    <div>
+        <h2>Recent messages</h2>
+        <div class="list">
+            {% for message in messages %}
+            <article>
+                <strong>{{ message.sender_name }} to {{ message.receiver_name }}</strong>
+                <p>{{ message.body }}</p>
+                <p>{{ message.created_at }} · {{ message.status }}</p>
+            </article>
+            {% else %}<p>No messages yet.</p>{% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
