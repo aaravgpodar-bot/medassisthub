@@ -364,6 +364,34 @@ def patients():
     return render_template("patients.html", patients=rows, search=search)
 
 
+@app.route("/patient/<int:patient_id>/edit", methods=["POST"])
+@login_required
+@staff_required
+def edit_patient(patient_id):
+    user = current_user()
+    form = request.form
+    execute(
+        """
+        UPDATE patients
+        SET full_name = ?, age = ?, phone = ?, medical_history = ?, allergies = ?,
+            notes = ?, updated_by = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+        """,
+        (
+            form.get("full_name", "").strip(),
+            form.get("age") or None,
+            form.get("phone", "").strip(),
+            form.get("medical_history", "").strip(),
+            form.get("allergies", "").strip(),
+            form.get("notes", "").strip(),
+            user["id"],
+            patient_id,
+        ),
+    )
+    flash("Patient record updated.", "success")
+    return redirect(url_for("patients"))
+
+
 @app.route("/appointments", methods=["GET", "POST"])
 @login_required
 @staff_required
@@ -401,6 +429,32 @@ def appointments():
     patients_list = query("SELECT id, full_name FROM patients ORDER BY full_name")
     staff = query("SELECT id, name, profession FROM users WHERE role != 'patient' AND is_active = 1 ORDER BY name")
     return render_template("appointments.html", appointments=rows, patients=patients_list, staff=staff)
+
+
+@app.route("/appointment/<int:item_id>/edit", methods=["POST"])
+@login_required
+@staff_required
+def edit_appointment(item_id):
+    form = request.form
+    execute(
+        """
+        UPDATE appointments
+        SET patient_id = ?, professional_id = ?, appointment_date = ?, appointment_time = ?,
+            reason = ?, status = ?
+        WHERE id = ?
+        """,
+        (
+            form["patient_id"],
+            form["professional_id"],
+            form["appointment_date"],
+            form["appointment_time"],
+            form.get("reason", "").strip(),
+            form.get("status", "scheduled"),
+            item_id,
+        ),
+    )
+    flash("Appointment updated.", "success")
+    return redirect(url_for("appointments"))
 
 
 @app.route("/appointment/<int:item_id>/<status>")
