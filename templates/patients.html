@@ -36,7 +36,7 @@ Doctor notes:"></textarea>
     {% for patient in patients %}
     <article>
         <h2>{{ patient.full_name }}</h2>
-        <p>Age {{ patient.age or "unknown" }} · {{ patient.phone or "no phone" }}</p>
+        <p>Age {{ patient.age or "unknown" }} - {{ patient.phone or "no phone" }}</p>
         <p><strong>Medical background:</strong> {{ patient.medical_history or "None recorded" }}</p>
         <p><strong>Allergies:</strong> {{ patient.allergies or "None recorded" }}</p>
         <div class="clinical-summary">
@@ -44,6 +44,18 @@ Doctor notes:"></textarea>
             <pre>{{ patient.notes or "No clinical summary added yet." }}</pre>
         </div>
         <p><strong>Created by:</strong> {{ patient.creator_name or "Unknown" }}</p>
+        <details class="edit-panel">
+            <summary>Edit patient and clinical summary</summary>
+            <form method="post" action="{{ url_for('edit_patient', patient_id=patient.id) }}" class="grid-form clinical-form">
+                <label>Full name <input name="full_name" value="{{ patient.full_name }}" required></label>
+                <label>Age <input type="number" name="age" min="0" value="{{ patient.age or '' }}"></label>
+                <label>Phone <input name="phone" value="{{ patient.phone or '' }}"></label>
+                <label>Allergies <textarea name="allergies">{{ patient.allergies or '' }}</textarea></label>
+                <label>Medical background <textarea name="medical_history">{{ patient.medical_history or '' }}</textarea></label>
+                <label>Clinical illness summary <textarea name="notes" class="summary-template">{{ patient.notes or '' }}</textarea></label>
+                <button>Save changes</button>
+            </form>
+        </details>
     </article>
     {% else %}<p>No patients found.</p>{% endfor %}
 </section>
