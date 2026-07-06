@@ -21,6 +21,7 @@ CREATE TABLE users (
 
 CREATE TABLE patients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    patient_user_id INTEGER UNIQUE,
     full_name TEXT NOT NULL,
     age INTEGER,
     phone TEXT,
@@ -31,6 +32,7 @@ CREATE TABLE patients (
     updated_by INTEGER,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_user_id) REFERENCES users(id),
     FOREIGN KEY (created_by) REFERENCES users(id),
     FOREIGN KEY (updated_by) REFERENCES users(id)
 );
