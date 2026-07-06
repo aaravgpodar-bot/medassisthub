@@ -1,27 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="section-head">
-    <h1>Create account</h1>
-    <p>Choose a staff workspace account or a patient portal account.</p>
+{% set selected_type = request.args.get('type', 'staff') %}
+<section class="section-head register-head">
+    <div>
+        <p class="eyebrow">Create account</p>
+        <h1>Staff or patient?</h1>
+        <p>Pick the account type first. Patient portal accounts get their own patient dashboard after signup.</p>
+    </div>
+    <div class="account-tabs" aria-label="Account type choices">
+        <a class="{{ 'active' if selected_type != 'patient' else '' }}" href="{{ url_for('register') }}?type=staff">Staff</a>
+        <a class="{{ 'active' if selected_type == 'patient' else '' }}" href="{{ url_for('register') }}?type=patient">Patient</a>
+    </div>
 </section>
-<form method="post" class="grid-form">
-    <label>Account type
-        <select name="account_type" required>
-            <option value="staff">Clinic staff</option>
-            <option value="patient">Patient portal</option>
+<form method="post" class="grid-form register-form">
+    <label class="account-type-label">Account type
+        <select name="account_type" id="account_type" required>
+            <option value="staff" {% if selected_type != 'patient' %}selected{% endif %}>Clinic staff</option>
+            <option value="patient" {% if selected_type == 'patient' %}selected{% endif %}>Patient portal</option>
         </select>
     </label>
     <label>Name <input name="name" required></label>
     <label>Email <input type="email" name="email" required></label>
     <label>Password <input type="password" name="password" required></label>
-    <label>Profession <input name="profession" placeholder="Doctor, Nurse, Receptionist"></label>
-    <label>Specialization <input name="specialization" placeholder="Pediatrics, Triage, Front Desk"></label>
-    <label>Workplace <input name="workplace" placeholder="Clinic or department"></label>
-    <label>Registration number <input name="registration_number" placeholder="Staff only"></label>
-    <label>Age <input type="number" name="age" min="0" placeholder="Patient only"></label>
-    <label>Phone <input name="phone" placeholder="Patient contact number"></label>
-    <label>Allergies <textarea name="allergies" placeholder="Patient only"></textarea></label>
-    <label>Patient notes <textarea name="notes" placeholder="Patient only"></textarea></label>
+
+    <label class="staff-field">Profession <input name="profession" placeholder="Doctor, Nurse, Receptionist"></label>
+    <label class="staff-field">Specialization <input name="specialization" placeholder="Pediatrics, Triage, Front Desk"></label>
+    <label class="staff-field">Workplace <input name="workplace" placeholder="Clinic or department"></label>
+    <label class="staff-field">Registration number <input name="registration_number" placeholder="Staff only"></label>
+
+    <label class="patient-field">Age <input type="number" name="age" min="0" placeholder="Patient only"></label>
+    <label class="patient-field">Phone <input name="phone" placeholder="Patient contact number"></label>
+    <label class="patient-field">Allergies <textarea name="allergies" placeholder="Patient only"></textarea></label>
+    <label class="patient-field wide-field">Patient notes <textarea name="notes" placeholder="Symptoms, medical history, medicines, or anything the clinic should know"></textarea></label>
     <button type="submit">Create account</button>
 </form>
 <p class="helper-text">The first staff account created becomes the admin. Patient accounts open the patient portal.</p>
