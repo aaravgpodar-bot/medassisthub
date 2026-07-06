@@ -34,9 +34,6 @@
     </header>
 
     <main class="page">
-        <section class="warning">
-            Project environment: use fictional records only. ClinicFlow is not a certified medical-record system.
-        </section>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             <div class="flash-list">
@@ -47,6 +44,7 @@
             {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
+        <p class="prototype-note">Prototype only. Do not enter real patient data until privacy, security, and regulatory review are complete.</p>
     </main>
     <script src="{{ url_for('static', filename='js/app.js', v='7') }}"></script>
 </body>
