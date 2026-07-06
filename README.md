@@ -1,16 +1,17 @@
 # ClinicFlow
 
-ClinicFlow is a Flask and SQLite web app for healthcare workplace coordination. It brings staff accounts, patient workflows, appointments, reminders, messages, feedback, and admin tools into one clean workspace.
+ClinicFlow is a Flask and SQLite web app for healthcare workplace coordination. It brings staff accounts, patient portal accounts, patient workflows, appointments, reminders, messages, feedback, and admin tools into one clean workspace.
 
 ## Features
 
-- User registration, secure login, logout, profiles, professions, and account status
-- First registered user automatically becomes the admin
-- Role-aware dashboard for appointments, tasks, messages, and quick actions
+- Staff and patient account registration with secure login/logout
+- First staff account automatically becomes the admin
+- Patient portal with profile updates, appointment requests, reminders, messages, and feedback
+- Staff dashboard for appointments, tasks, messages, and quick actions
 - Patient records with history, allergies, notes, and creator attribution
 - Appointment list with scheduled, waiting, completed, and cancelled states
 - Tasks and reminders for follow-ups, reports, and medication reviews
-- Internal staff messaging
+- Internal staff and patient-to-staff messaging
 - Issue reporting and feature feedback grouped by profession
 - Admin panel for users, account activation, statistics, and feedback summaries
 
@@ -24,7 +25,7 @@ python seed_data.py
 python app.py
 ```
 
-`python seed_data.py` creates a clean empty database. Open the website and sign up; the first account created becomes the admin.
+`python seed_data.py` creates a clean empty database. Open the website and sign up. The first staff account created becomes the admin. Patient accounts open the patient portal.
 
 ## PythonAnywhere Setup
 
